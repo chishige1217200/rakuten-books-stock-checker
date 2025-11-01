@@ -1,6 +1,9 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
+import { MultiFormatItems } from "@/types/MultiformatItems";
 
-export default function Home() {
+function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
@@ -59,6 +62,66 @@ export default function Home() {
             Documentation
           </a>
         </div>
+      </main>
+    </div>
+  );
+}
+
+export default function MainPage() {
+  const [id, setId] = useState("");
+  const [book, setBook] = useState<MultiFormatItems | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleFetch = async () => {
+    setError(null);
+    setBook(null);
+
+    try {
+      const res = await fetch(`/api/rakuten-books/${encodeURIComponent(id)}`);
+      const json = await res.json();
+
+      if (!res.ok) {
+        throw new Error(json.error || "取得に失敗しました");
+      }
+
+      setBook(json);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError(String(err));
+      }
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-gray-900">
+      <main className="flex min-h-screen min-w-3xl flex-col items-center justify-start py-8 px-8 bg-white dark:bg-black sm:items-start">
+        <h1 className="text-2xl font-bold mb-4">商品情報を取得</h1>
+
+        <div className="mb-4 flex gap-2">
+          <input
+            type="text"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            placeholder="商品IDを入力"
+            className="border rounded p-2"
+          />
+          <button
+            onClick={handleFetch}
+            className="bg-blue-600 text-white px-4 py-2 rounded"
+          >
+            取得
+          </button>
+        </div>
+
+        {error && <p className="text-red-500">エラー: {error}</p>}
+
+        {book && (
+          <pre className="p-4 rounded">
+            {JSON.stringify(book, null, 2)}
+          </pre>
+        )}
       </main>
     </div>
   );
