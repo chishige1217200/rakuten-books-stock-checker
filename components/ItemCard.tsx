@@ -121,7 +121,10 @@ export default function ItemCard({ id }: { id: string }) {
 
   return (
     <>
-      <Card style={{ width: 250 }} type={getColor()}>
+      <Card
+        style={{ width: 250, outline: checked ? "solid" : "none" }}
+        type={getColor()}
+      >
         <CardBody>
           <div className="flex justify-between">
             <CardTitle>{getTitle()}</CardTitle>
