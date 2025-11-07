@@ -70,7 +70,7 @@ export default function ItemCard({ id }: { id: string }) {
     }
 
     if (book) {
-      if (book.item.delv_date_id !== 22) {
+      if (book.item.delv_date_id !== 21 && book.item.delv_date_id !== 22) {
         return "success";
       } else {
         return "warning";
