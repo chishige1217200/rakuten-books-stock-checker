@@ -1,6 +1,6 @@
 import "@progress/kendo-theme-default/dist/all.css";
-import Manual from "@/components/manual";
+import Main from "@/components/main";
 
 export default function Home() {
-  return <Manual />;
+  return <Main />;
 }
