@@ -82,7 +82,7 @@ export default function ItemCard({ id }: { id: string }) {
 
   const getTitle = () => {
     if (error) {
-      return "取得エラー";
+      return `商品ID: ${id}`;
     }
 
     if (book) {
