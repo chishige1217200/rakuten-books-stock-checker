@@ -19,7 +19,10 @@ function commaStringToArray(str: string): string[] {
 
 export default function Manual() {
   const [ids, setIds] = useState<string[]>(() => {
-    const stored = localStorage.getItem("manualIds");
+    let stored: string | null = null;
+    if (typeof window !== "undefined") {
+      stored = localStorage.getItem("manualIds");
+    }
     return stored ? commaStringToArray(stored) : [];
   });
 
