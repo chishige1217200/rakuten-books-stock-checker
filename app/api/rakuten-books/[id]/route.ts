@@ -17,7 +17,7 @@ export async function GET(
   const API_URL = `https://gateway-api.global.rakuten.com/books/multiformatItems/rb/item/${id}/`;
 
   try {
-    const res = await fetch(API_URL, { method: "GET" });
+    const res = await fetch(API_URL, { method: "GET", cache: "no-store" });
 
     if (!res.ok) {
       const apiErrorResponse: ApiErrorResponse = {
