@@ -2,20 +2,7 @@
 import { useState } from "react";
 import ItemCard from "./ItemCard";
 import TagInput from "./TagInput";
-
-// string[] → カンマ区切り文字列
-function arrayToCommaString(arr: string[]): string {
-  return arr.join(",");
-}
-
-// カンマ区切り文字列 → string[]
-function commaStringToArray(str: string): string[] {
-  // 空文字対応・空要素除外のためtrimとfilterを追加
-  return str
-    .split(",")
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
-}
+import { arrayToCommaString, commaStringToArray } from "@/lib/stringUtil";
 
 export default function Manual() {
   const [ids, setIds] = useState<string[]>(() => {
